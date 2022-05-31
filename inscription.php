@@ -11,15 +11,15 @@ if(isset($_POST['nom'])) {
     $mailconfirm=htmlspecialchars($_POST['mailconfirm']);
     $password=($_POST['password']);
     $passwordconfirm=($_POST['passwordconfirm']);
-    $selectVilleStr= 'SELECT * FROM villes WHERE ville_nom_reel = :ville OR ville_nom=:ville OR ville_nom_simple=:ville';
+    $selectVilleStr= 'SELECT * FROM villes WHERE nom_ville = :nom_ville';
     $selectVilleQuery = $bdd ->prepare($selectVilleStr);
-    $selectVilleQuery -> bindValue (':ville', $_POST['ville'],PDO::PARAM_STR); 
+    $selectVilleQuery -> bindValue (':nom_ville', $_POST['ville'],PDO::PARAM_STR); 
     $selectVilleQuery->execute();
     $selectVille = $selectVilleQuery->fetch();
     $role = 1;
-    $selectUserStr= 'SELECT * FROM user WHERE mail = :mail';
+    $selectUserStr= 'SELECT * FROM user WHERE email_user = :email_user';
     $selectUserQuery = $bdd ->prepare($selectUserStr);
-    $selectUserQuery -> bindValue (':mail', $_POST['mail'],PDO::PARAM_STR); 
+    $selectUserQuery -> bindValue (':email_user', $_POST['email'],PDO::PARAM_STR); 
     $selectUserQuery->execute();
     $selectUser = $selectUserQuery->fetch();
     
@@ -33,7 +33,7 @@ if(isset($_POST['nom'])) {
             if($mail==$mailconfirm && $password==$passwordconfirm) {
                 //on sécurise le password  en le cryptant avec la fonction password_hash, le résultat est mis dans une variable que l'on va binder et insérer en BD via notre query. Nous aurons donc au final un password crypté en BD pour l'utilisateur 
                 $hash = password_hash($password, PASSWORD_BCRYPT);
-                $queryStr = 'INSERT INTO user (ID,nom,prenom,adresse,mail,numero,mdp,ID_role,ID_ville_id) VALUES (null,:nom,:prenom,:adresse,:mail,:numero,:mdp,:ID_role,:ID_ville_id)'; 
+                $queryStr = 'INSERT INTO user (ID,nom_user,prenom_user,adresse_user,email_user,tel_user,mdp_user,ID_ville,ID_role) VALUES (null,:nom,:prenom,:adresse,:mail,:numero,:mdp,:ID_ville,:ID_role)'; 
                 $query = $bdd->prepare($queryStr);
                 $query->bindValue(':nom',$nom, PDO::PARAM_STR);
                 $query->bindValue(':prenom',$prenom, PDO::PARAM_STR);
@@ -70,7 +70,7 @@ if(isset($_POST['nom'])) {
             <input class="input" name="adresse" id="adresse" type="text" placeholder="Adresse" required/>
             <input class="input" name="ville" id="ville" type="text" placeholder="Ville" required/>
             <input class="input" name="numero" id="numero" type="text" placeholder="Numéro de téléphone" required/>	
-            <input class="input" name="mail" id="mail" type="email" placeholder="E-mail" required/>
+            <input class="input" name="email" id="email" type="email" placeholder="E-mail" required/>
             <input class="input" name="mailconfirm" id="mailconfirm" type="email" placeholder="Confirmer E-mail" required/>
             <input class="input" name="password" id="password" type="text" placeholder="Mot de passe" required/>
             <input class="input" name="passwordconfirm" id="passwordconfirm" type="text" placeholder="Confirmer mot de passe" required/>	 

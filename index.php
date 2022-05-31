@@ -17,7 +17,7 @@ session_start();
 
 
 
-	<form action="insertion.php" method="post">
+	<form action="insertcategorie.php" method="post">
         <p><input class="input" name="categorie" id="categorie" type="text" placeholder="categorie" required/></p>
 	    <p><input  type="submit" name="submit" value="Envoyer" required /></p>
         </form>

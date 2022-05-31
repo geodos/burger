@@ -6,7 +6,7 @@ if (isset($_SESSION['user'])&& $_SESSION['user']['role']==2 ) {
     if(isset($_POST['categorie'])){
     
         $exist=false;
-        // on fait un select sur l'ensemble des marques de la table marque que l'on met dans un tableau
+        // on fait un select sur l'ensemble des categories de la table categorie que l'on met dans un tableau
         $selectStr= 'SELECT * FROM categorie';
         $selectQuery =$bdd->query($selectStr);
         $donnee = $selectQuery->fetchAll();
@@ -32,8 +32,3 @@ if (isset($_SESSION['user'])&& $_SESSION['user']['role']==2 ) {
     {header('Location: index.php');}
     ?>
     
-if (isset($_POST['categorie'])) {
-addcat ($bdd,$_POST['categorie']);
-}
-
-?>
