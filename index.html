@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <link rel="stylesheet" href="style.css">
+   <link rel="preconnect" href="https://fonts.googleapis.com">
+   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+   <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;1,100;1,200;1,300;1,400;1,500&display=swap" rel="stylesheet">
+    <title>Document</title>
+</head>
+<body>
+  
+    <div id="mySidenav" class="sidenav">
+        <a id="closeBtn" href="#" class="close">&times;</a>
+        <ul>
+          <li class = "propos">A propos</a></li>
+          </ul>
+          <ul>la carte</ul>
+          <li><a href="#">Menus</a></li>
+          <li> <a href="#">Burgers</li>
+          <ul><a href="#">Click & Collect</a></ul>
+          <ul><a href="#">Contact</a></ul>
+        </ul>
+      </div>
+      
+      <a href="#" id="openBtn">
+        <span class="burger-icon">
+          <span></span><br>
+          <span></span><br>
+          <span></span><br>
+        </span>
+      </a>
+      
+      <div class ="container">
+          <div class="overlay">
+        <h1>Burger Company</h1>
+       </div>
+       <div class="logo">
+           <img src="/images/MicrosoftTeams-image (2).png" alt="">
+       </div>
+       
+      <video id="video" width=1920 height="1080" loop="true" autoplay="autoplay" fullscreen=" allowfullscreen" controls muted  >
+        <source src="/mixkit-spinning-burger-with-ketchup-29597-medium.mp4"type=video/mp4> 
+      </video>
+    </div>
+    </div>
+        
+
+      
+</body>
+<script>
+    var sidenav = document.getElementById("mySidenav");
+var openBtn = document.getElementById("openBtn");
+var closeBtn = document.getElementById("closeBtn");
+
+openBtn.onclick = openNav;
+closeBtn.onclick = closeNav;
+
+/* Set the width of the side navigation to 250px */
+function openNav() {
+  sidenav.classList.add("active");
+}
+
+/* Set the width of the side navigation to 0 */
+function closeNav() {
+  sidenav.classList.remove("active");
+}
+</script>
+</html>
