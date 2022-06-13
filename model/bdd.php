@@ -1,5 +1,6 @@
 <?php
 
+// données de connexion à la BD avec l'objet PDO
 $host= 'localhost:8889';
 $dbName = 'fastfood';
 $user = 'root';
