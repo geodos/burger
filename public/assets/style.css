@@ -1,0 +1,323 @@
+:root{
+  --hauteur-menu: 60px;
+}
+
+* {
+  margin: 0px;
+  padding: 0px;
+  font-family: Montserrat, sans-serif;
+}
+
+body{background-color: black;
+  color: white;
+}
+
+header {
+  position: relative;
+  height: 20vh;
+  background-color: rgba(0, 0, 0, 0.964);
+  box-shadow: 0px 1px 2px 1px rgb(0, 0, 0);
+  display: flex;
+  text-align: center;
+  justify-content: space-evenly;
+  color: white;
+}
+
+
+/*CSS de la barre de navigation */
+nav {
+
+  margin: auto;
+  width: 68%;
+  
+  font-size: 17px;
+  position: sticky;
+  top: 0;
+}
+
+nav > ul {
+  display: flex;
+  height: var(--hauteur-menu);
+}
+
+nav ul {
+  list-style-type: none;
+}
+
+nav > ul > li {
+
+  position: relative;
+  height: 100%;
+  flex: 1;
+}
+
+nav > ul > li:hover > a{
+  color: orange;
+}
+
+nav > ul > li > a {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+li a {
+  text-decoration: none;
+  color: white;
+}
+
+.menu-deroulant > a:after{
+  content: '❯';
+  font-size: 15px;
+  margin-left: 7px;
+  display: inline-block;
+}
+
+.menu-deroulant:hover > a:after{
+  animation: rotationFleche 0.2s linear forwards;
+}
+
+@keyframes rotationFleche {
+  0% {
+    transform: rotate(0deg);
+  }
+  50% {
+    transform: rotate(45deg);
+  }
+  100%{
+    transform: rotate(90deg);
+  }
+}
+
+.sous-menu {
+  margin-top: var(--hauteur-menu);
+  width: 100%;
+  text-align: left;
+  overflow: hidden;
+  max-height: 0;
+  border-radius: 2px;
+  background-color: black;
+}
+
+.menu-deroulant:hover > .sous-menu {
+  animation: apparitionSousMenu 1s forwards;
+}
+
+@keyframes apparitionSousMenu {
+  0% {
+    box-shadow: 0px 3px 3px 1px rgba(0,0,0,0);
+    border-top: 3px solid orange;
+  }
+  30% {
+    box-shadow: 0px 3px 3px 1px rgba(0,0,0,0.3);
+  }
+  100% {
+    max-height: 50em;
+    border-top: 3px solid orange;
+    box-shadow: 0px 3px 3px 1px rgba(0,0,0,0.3);
+  }
+}
+
+.sous-menu > li:hover {
+  background-color: orange;
+}
+
+.sous-menu > li > a {
+  align-items: center;
+  display: flex;
+  height: 50px;
+  padding-left: 20px;
+  width: 100%;
+}
+
+.sous-menu > li:hover > a {
+  color: black;
+}
+
+
+#user {
+margin: auto;
+display: flex;
+justify-content: space-between;
+flex-wrap: nowrap;
+}
+/* CSS des autres éléments du header */
+#user a{
+  color: white;
+  text-decoration-line: none;
+  padding: 20px;
+}
+
+#ajouts{
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+  color: white;
+  margin: auto;
+}
+
+.overlay{
+  position: absolute;
+  z-index: O;
+  top: 0;
+  height: 10vh;
+  color: white;
+}
+
+.container { 
+  position:relative;
+  z-index: -1; }
+  
+.container video {
+position:relative;
+  z-index:0;
+  width: 100%;
+  height: 70vh;
+}
+.overlay {
+position:absolute;
+top:15%;
+
+z-index:1;
+color: white;
+font-size: 300%;
+height: 30vh;
+width: 100%;
+text-align: center;
+}
+
+
+.logo{
+ margin: auto;
+ width: 7%;
+  z-index: 1;
+  left: 5%;
+  top: 5%;
+}    
+
+.logo img {width: 100%;}
+
+.renseigner{
+  background-color: black;
+  color: white;
+  text-align: center;
+  height: 85vh;
+}
+
+.message-user{
+  padding: 30px;
+}
+
+.formulaire-connexion{
+ margin: auto;
+ width: 20%;
+ border: solid orange 2px;
+ 
+}
+#formulaire-connexion form{
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+ 
+}
+
+.formulaire-connexion input{
+ padding: 10px;
+ margin: 20px;
+}
+
+#connexion{
+  padding: 5px;
+  margin: 10px;
+ }
+
+ 
+.formulaire-connexion ul li{
+ list-style: none;
+ }
+
+
+#connexion:hover{
+ background-color: orange;
+ color: black;
+ }
+
+ #carte{height: 80vh;
+display: flex;}
+
+ #commande-burgers img{
+   width: 20%;
+   padding: Opx 20px;
+ }
+
+ .ajout-panier{ background-color: black;
+  color: white;
+  }
+ .ajout-panier:hover{ background-color: orange;
+  color: black;
+  }
+
+  .renseigner{
+  margin-top: 10px;
+  }
+
+  .renseigner div{
+    margin: auto;
+    }
+
+  #inscription{
+    margin-top: 10px;
+    width: 20%;
+    height: 80%;
+    margin: auto;
+    padding: 20px;
+    border: solid orange 2px;
+ 
+  }
+
+  #inscription input{
+    width: 200px;
+    margin-bottom: 10px;
+    padding: 10px;
+  }
+
+  #ajouts a{
+    text-decoration:none;
+    color: white;
+  }
+
+  
+ 
+
+  .burgers{display: flex;
+  justify-content: space-evenly;  
+  margin-bottom: 10px;
+}
+
+  .box{text-align: center;
+  background-color: rgba(213, 107, 7, 0.817);
+  width: 250px;}
+
+  .box img{width: 80%;padding: 10px;}
+  .box a{text-decoration: none;}
+
+  .boissons{
+    width: 100%;
+    height: auto;
+    display: flex;
+    justify-content: space-evenly;}
+
+  #panier {
+    margin: auto auto;
+    
+  
+  }
+
+  #panier a{
+    color: white;
+    text-align: center;
+    
+  }
+
+ 

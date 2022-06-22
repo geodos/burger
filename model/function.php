@@ -9,10 +9,8 @@ include('../model/bdd.php');
  * @param PDO $bdd
  * @return void
  */
-function connexion($bdd) {
-if(isset($_POST['email'])) {
-    $email=$_POST['email'];
-    $password=$_POST['password'];
+function connexion($bdd,$email,$password) {
+
     // avec la commande SELECT on pointe sur la table user la ligne qui contient l'e-mail entré par l'utilisateur
     $selectStr= 'SELECT * FROM user WHERE email_user = :email';
     $selectQuery = $bdd ->prepare($selectStr);
@@ -45,40 +43,13 @@ if(isset($_POST['email'])) {
     else {echo "User inexistant";}
 
 }  
- }
+ 
 
 
 
 
 
-/**
- * ajout categorie
- *
- * @param PDO $bdd
- * @param STR $categorie
- * @return void
- */
-function addcat($bdd,$categorie) {
-    $queryStr = 'INSERT INTO categorie (ID, nom_categorie) VALUES (null, :nom_categorie)'; 
-    $query = $bdd->prepare($queryStr);
-    $query->bindValue(':nom_categorie',$categorie, PDO::PARAM_STR);
-    $query->execute();
-    header('Location: index.php');
-    }
-/**
- * ajout produit
- *
- * @param PDO $bdd
- * @param [type] $produit
- * @return void
- */
-function addprod ($bdd,$produit) {
-    $queryStr = 'INSERT INTO produit (ID, nom_produit,prix_produit,ID_categorie) VALUES (null, :nom_produit,:prix_produit,:ID_categorie)'; 
-    $query = $bdd->prepare($queryStr);
-    $query->bindValue(':categorie',$produit, PDO::PARAM_STR);
-    $query->execute();
-    header('Location: index.php');
-    }
+
 
     /**
      * ajout utilisateur 
@@ -113,158 +84,44 @@ function inscription ($bdd,$nom,$prenom,$adresse,$email,$numero,$hash,$ville,$ro
     /*header('Location: index.php'); */
     }
 
-    /**
-     * Selectioner la liste des villes en BD
-     *
-     * @param PDO $bdd
-     * @param str $ville
-     * @return array
-     */
-function selVille($bdd,$ville) {
-$selectVilleStr= 'SELECT * FROM ville WHERE nom_ville = :nom_ville';
-$selectVilleQuery = $bdd ->prepare($selectVilleStr);
-$selectVilleQuery -> bindValue (':nom_ville',$ville,PDO::PARAM_STR); 
-$selectVilleQuery->execute();
-$selectVille = $selectVilleQuery->fetch();
-return $selectVille;
-}
 
-/**
- * Selectionner la liste des categories en BD
- *
- * @param PDO $bdd
- * @return array
- */
-function getCategories($bdd){
-    $selectStr= 'SELECT * FROM categorie';
-    $selectQuery =$bdd->query($selectStr);
-    $donnee = $selectQuery->fetchAll();
-    return $donnee;
-}
-
-/**
- * Selectionner la liste des Utilisateurs
- *
- * @param PDO $bdd
- * @param str $email
- * @return array
- */
-function selUser($bdd,$email) {
-$selectUserStr= 'SELECT * FROM user WHERE email_user = :email_user';
-$selectUserQuery = $bdd ->prepare($selectUserStr);
-$selectUserQuery -> bindValue (':email_user', $email,PDO::PARAM_STR); 
-$selectUserQuery->execute();
-$selectUser = $selectUserQuery->fetch();
-return $selectUser;
-}
-
-/**
- * selecitonner les categories par ordre ascendant
- *
- * @param PDO $bdd
- * @return array
- */
-function selCategories($bdd) {
-$selectStr='SELECT * FROM categorie ORDER BY nom_categorie ASC';
-$selectQuery =$bdd->query($selectStr);
-$bddArray = $selectQuery->fetchAll();
-return $bddArray;
-}
-
-/**
- * selectionner les produits
- *
- * @param PDO $bdd
- * @return array
- */
-function selProduits($bdd) {
-    $selectStr='SELECT * FROM produit';
-    $selectQuery =$bdd->query($selectStr);
-    $bddArray = $selectQuery->fetchAll();
-    return $bddArray;
+    function createPanier($bdd,$IDuser){
+        $queryStr = 'INSERT INTO panier (ID,ID_user) VALUES (null,:ID_user)'; 
+        $query = $bdd->prepare($queryStr);
+        $query->bindValue(':ID_user',$IDuser, PDO::PARAM_INT);
+        $query->execute();
     }
 
+    
 
-/**
- * selectionner les produits et categories
- *
- * @param PDO $bdd
- * @return array
- */
-function selProduitsJoinCat($bdd) {
-        $selectStr='SELECT * FROM produit INNER JOIN categorie on ID_categorie = categorie.ID' ;
-        $selectQuery =$bdd->query($selectStr);
-        $bddArray = $selectQuery->fetchAll();
-        return $bddArray;
+    function selVille($bdd,$ville) {
+        $selectVilleStr= 'SELECT * FROM ville WHERE nom_ville = :nom_ville';
+        $selectVilleQuery = $bdd ->prepare($selectVilleStr);
+        $selectVilleQuery -> bindValue (':nom_ville',$ville,PDO::PARAM_STR); 
+        $selectVilleQuery->execute();
+        $selectVille = $selectVilleQuery->fetch();
+        return $selectVille;
         }
 
-        
+        function selUser($bdd,$email) {
+            $selectUserStr= 'SELECT * FROM user WHERE email_user = :email_user';
+            $selectUserQuery = $bdd ->prepare($selectUserStr);
+            $selectUserQuery -> bindValue (':email_user', $email,PDO::PARAM_STR); 
+            $selectUserQuery->execute();
+            $selectUser = $selectUserQuery->fetch();
+            return $selectUser;
+            }
 
-function insertproduit($bdd,$nom,$prix,$categorie) {
-    $queryStr = 'INSERT INTO produit (ID, nom_produit, prix_produit,ID_categorie) VALUES (null, :nom_produit, :prix_produit, :ID_categorie)'; 
-    $query = $bdd->prepare($queryStr);
-    $query->bindValue(':nom_produit',$nom, PDO::PARAM_STR);
-    $query->bindValue(':prix_produit',$prix, PDO::PARAM_STR);
-    $query->bindValue(':ID_categorie',$categorie, PDO::PARAM_INT);
-    $query->execute();
-    echo 'produit ajouté au catalogue';
-}
-
-
-/**
- * selectionner le dernier produit en BD
- *
- * @param PDO $bdd
- * @return array
- */
-function selLastProd($bdd) {
-$selectProd = 'SELECT MAX(ID) FROM produit';
-$selectQuery =$bdd->query($selectProd);
-$produitID = $selectQuery->fetch();
-return $produitID;
-}
-
-/**
- * insertion image en DB
- *
- * @param PDO $bdd
- * @param STR $targetFile
- * @param INT $produit
- * @return void
- */
-function insertImage ($bdd,$targetFile,$produit) {
-    $imageStr = 'INSERT INTO imageproduit (ID, nom_image, ID_produit) VALUES (null, :nom_image, :ID_produit)'; 
-    $queryImage = $bdd->prepare($imageStr);
-    $queryImage->bindValue(':nom_image',$targetFile, PDO::PARAM_STR);
-    $queryImage->bindValue(':ID_produit',$produit, PDO::PARAM_INT);
-    $queryImage->execute();
-}
-
-/**
- * supprimer une catégorie
- *
- * @param PDO $bdd
- * @return void
- */
-function deleteCat($bdd){
-if (isset($_GET['delete'])){
-    $delete=$_GET['delete'];
-
-    $queryStr='DELETE FROM categorie WHERE categorie.ID = :ID';
-    $query = $bdd ->prepare($queryStr);
-    $query -> bindValue (':ID',$delete,PDO::PARAM_INT); 
-    $query->execute();
-    header('Location: index.php');  
-}
-}
+/*
+            function addItemToCart($bdd,$id){
+            if(isset($_SESSION['user'])&& !empty($_SESSION['user'])){
+                $bddPanier= getPanierByUserId($bdd,$_SESSION['user]['ID_user']])
+            }
 
 
-function selProduitbyID($bdd,$update) {
-$queryStr = 'SELECT * FROM produit INNER JOIN categorie on ID_categorie = categorie.ID WHERE produit.ID = :ID';
-$query = $bdd ->prepare($queryStr);
-$query-> bindValue(':ID',$update, PDO::PARAM_INT);
-$query->execute(); 
-
-}
-
-?>
+            } else {if(isset($_SESSION['panier'])){
+                array_push(($_SESSION['panier'],$id);
+            
+            } else 
+            
+            ?>

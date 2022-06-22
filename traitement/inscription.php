@@ -1,6 +1,7 @@
 
 <?php
 
+include('../model/backoffice/function.php');
 include('../model/function.php');
 
 
@@ -18,7 +19,7 @@ if(isset($_POST['nom'])) {
     $role = 1;
     $selVille = selVille($bdd,$ville);
 
-    // si selUserest différent de null cela signifie que nous avons déja un utilisateur possédant l'email renseigné
+    // si selUser est différent de null cela signifie que nous avons déja un utilisateur possédant l'email renseigné
     if (selUser($bdd,$email) !=null) {
         echo 'User déja existant. Merci de vous connecter';}
     //sinon si selUser == nul signifie que l'email n'existe pas et donc l'utilisateur. On ajoute une condition sur le check d'existence de la ville 
@@ -45,8 +46,10 @@ if(isset($_POST['nom'])) {
 
 
 
-<section id= "renseigner">
-    <form action="" method="post">
+<section class= "renseigner">
+
+    <div>
+        <form action="" method="post" id="inscription">
            
             <input class="input" name="nom" id="nom" type="text" placeholder="Nom" required/>
             <input class="input" name="prenom" id="prenom" type="text" placeholder="Prenom" required/>
@@ -57,10 +60,10 @@ if(isset($_POST['nom'])) {
             <input class="input" name="emailconfirm" id="emailconfirm" type="email" placeholder="Confirmer E-mail" required/>
             <input class="input" name="password" id="password" type="text" placeholder="Mot de passe" required/>
             <input class="input" name="passwordconfirm" id="passwordconfirm" type="text" placeholder="Confirmer mot de passe" required/>	 
-            <button type="submit" id="submit" value="Rechercher">Sauvegarder </button>  
+            <input type="submit" class="submit" value="Inscription">
 
         </form>
-
-    </section>
+    </div>
+</section>
 
    
